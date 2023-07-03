@@ -15,13 +15,13 @@ To get started with the project in docker, follow these steps:
 1. Clone the repository to your local machine:
 
    ```shell
-   git clone https://github.com/Elvis-Benites-N/MessengerService.git
+   git clone https://github.com/Elvis-Benites-N/MessengerServiceGo.git
    ```
 
 2. Move to the project directory:
 
    ```shell
-   cd MessengerService
+   cd MessengerServiceGo
    ```
 
 3. Build the Docker containers:
@@ -57,12 +57,12 @@ I hope this helps you get started with Docker in your project! Let me know if yo
 
 1. Clone the repository:
    ```shell
-   git clone https://github.com/Elvis-Benites-N/MessengerService.git
+   git clone https://github.com/Elvis-Benites-N/MessengerServiceGo.git
    ```
 
 2. Navigate to the project directory:
    ```shell
-   cd MessengerService
+   cd MessengerServiceGo
    ```
 
 3. Rename the `.env.example` file to `.env`:
