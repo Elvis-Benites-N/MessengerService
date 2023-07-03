@@ -107,7 +107,7 @@ Send HTTP requests to user:
 E.g. A basic chat /signup POST request could look as follows:
 ```json
 {
-	"username" : "elvisbenites",
+    "username" : "elvisbenites",
     "email" : "ebnbenites@gmail.com",
     "password" : "admin123"
 }
@@ -151,7 +151,7 @@ Send HTTP requests to `/ws` for server API:
 E.g. A basic chat /createServer POST request could look as follows. if this process is successful, the server will respond with HTTP code 200 and shows the data entered:
 ```json
 {
-	"id": "1",
+    "id": "1",
     "name": "GoDevelopers"
 }
 ```
