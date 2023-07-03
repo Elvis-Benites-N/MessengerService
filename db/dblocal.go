@@ -16,8 +16,8 @@ type DatabaseLocal struct {
 	db *sql.DB
 }
 
-// NewDatabase creates a new Database instance and establishes a connection to the database.
-func NewDatabaseLocal() (*Database, error) {
+// NewDatabase creates a new DatabaseLocal instance and establishes a connection to the database.
+func NewDatabaseLocal() (*DatabaseLocal, error) {
 	// Load environment variables from .env file
 	err := godotenv.Load()
 	if err != nil {
@@ -55,7 +55,7 @@ func NewDatabaseLocal() (*Database, error) {
 	}
 
 	if exists {
-		// Database already exists, no need to create
+		// DatabaseLocal already exists, no need to create
 		connectionDB = connectionDB + " dbname=" + dbName
 		db, err = sql.Open("postgres", connectionDB)
 		if err != nil {
@@ -63,9 +63,9 @@ func NewDatabaseLocal() (*Database, error) {
 		}
 	} else {
 
-		// Database doesn't exist, create it
+		// DatabaseLocal doesn't exist, create it
 		createDBFilePath := filepath.Join("db", "migrate", "createDataBase.sql")
-		err = executeSQLFile(db, createDBFilePath)
+		err = executeSQLFileLocal(db, createDBFilePath)
 		if err != nil {
 			return nil, err
 		}
@@ -79,19 +79,19 @@ func NewDatabaseLocal() (*Database, error) {
 
 	// Execute the SQL file to create tables
 	filePath := filepath.Join("db", "migrate", "createTable.sql")
-	err = executeSQLFile(db, filePath)
+	err = executeSQLFileLocal(db, filePath)
 	if err != nil {
 		return nil, err
 	}
 
 	// Uncomment the following lines if there is a need to execute a dropTable.sql file
 	// dropTableFilePath := filepath.Join("db", "migrate", "dropTable.sql")
-	// err = executeSQLFile(db, dropTableFilePath)
+	// err = executeSQLFileLocal(db, dropTableFilePath)
 	// if err != nil {
 	// 	return nil, err
 	// }
 
-	return &Database{db: db}, nil
+	return &DatabaseLocal{db: db}, nil
 }
 
 // checkDatabaseExists checks if the database with the given name exists.
@@ -106,14 +106,14 @@ func checkDatabaseExists(db *sql.DB, dbName string) (bool, error) {
 }
 
 // executeSQLFile reads the SQL file and executes its content against the database.
-func executeSQLFile(db *sql.DB, filePath string) error {
+func executeSQLFileLocal(db *sql.DB, filePath string) error {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return fmt.Errorf("failed to open SQL file: %w", err)
 	}
 	defer file.Close()
 
-	_, err = db.Exec(string(readFile(file)))
+	_, err = db.Exec(string(readFileLocal(file)))
 	if err != nil {
 		return err
 	}
@@ -122,17 +122,17 @@ func executeSQLFile(db *sql.DB, filePath string) error {
 }
 
 // readFile reads the content of a file and returns it as a byte slice.
-func readFile(file io.Reader) []byte {
+func readFileLocal(file io.Reader) []byte {
 	data, _ := io.ReadAll(file)
 	return data
 }
 
 // Close closes the database connection.
-func (d *Database) CloseLocal() {
+func (d *DatabaseLocal) CloseLocal() {
 	d.db.Close()
 }
 
 // GetDB returns the underlying *sql.DB instance.
-func (d *Database) GetDBLocal() *sql.DB {
+func (d *DatabaseLocal) GetDBLocal() *sql.DB {
 	return d.db
 }

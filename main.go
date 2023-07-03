@@ -36,5 +36,7 @@ func main() {
 
 	// Initialize and start the router
 	router.InitRouter(userHandler, wsHandler)
+
 	router.Start("0.0.0.0:4200")
+
 }

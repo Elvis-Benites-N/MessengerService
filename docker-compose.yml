@@ -10,14 +10,16 @@ services:
       - DB_PORT=5432
       - DB_USER=root
       - DB_PASSWORD=password
-      - DB_NAME=go-chat
+      - DB_NAME=chatgo
     depends_on:
       - db
   db:
     image: postgres:latest
     ports:
-      - 5433:5432
+      - 5432:5432
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=go-chat
+      - POSTGRES_DB=chatgo
+    volumes:
+      - ./db/migrate:/docker-entrypoint-initdb.d

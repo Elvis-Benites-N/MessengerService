@@ -17,7 +17,7 @@ func main() {
 	}
 
 	// Create the user repository
-	userRep := user.NewRepository(dbConn.GetDB())
+	userRep := user.NewRepository(dbConn.GetDBLocal())
 
 	// Create the user service
 	userSvc := user.NewService(userRep)
